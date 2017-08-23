@@ -563,10 +563,11 @@ static int get_c0_available_cpufreq(void)
 
 static int get_c1_available_cpufreq(void)
 {
-        unsigned int max_cpufreq_index = 0, min_cpufreq_index = 0;
-        unsigned int max_index = 0;
-        unsigned int index_max = 0, index_min = 0;
-        struct cpufreq_frequency_table *table, *pos;
+
+	unsigned int max_cpufreq_index = 0, min_cpufreq_index = 0;
+	unsigned int max_index = 0;
+	unsigned int index_max = 0, index_min = 0;
+	struct cpufreq_frequency_table *table, *pos;
 
 	table = cpufreq_frequency_get_table(cluster1_first_cpu);
 	if (!table) {
@@ -635,7 +636,7 @@ static int c0_cpufreq_qos_handler(struct notifier_block *b, unsigned long val, v
 
 	ret = get_c0_available_cpufreq();
 	if (ret) {
-        	cpufreq_cpu_put(policy);
+		cpufreq_cpu_put(policy);
 		return NOTIFY_BAD;
 	}
 
