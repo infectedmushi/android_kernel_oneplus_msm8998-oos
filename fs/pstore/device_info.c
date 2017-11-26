@@ -7,7 +7,8 @@
 
 #include <linux/pstore.h>
 
-#include <device_info.h>
+#include "device_info.h"
+#include <linux/param_rw.h>
 
 static int __init device_info_init(void)
 {
