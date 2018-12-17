@@ -861,7 +861,7 @@ static int tsens_tz_get_temp(struct thermal_zone_device *thermal,
 	if (!tm_sensor || !temp)
 		return -EINVAL;
 
-	tmdev = tm_sensor->tm;
+	tmdev = tm_sensor->tm; =======
 	if (!tmdev)
 		return -EINVAL;
 
@@ -1416,6 +1416,9 @@ static void tsens_poll(struct work_struct *work)
 
 	if (tmdev->tsens_critical_poll) {
 		msleep(TSENS_DEBUG_POLL_MS);
+		/* Read sensor_status */
+		mb();
+
 		sensor_status_addr = TSENS_TM_SN_STATUS(tmdev->tsens_addr);
 
 		spin_lock_irqsave(&tmdev->tsens_crit_lock, flags);
