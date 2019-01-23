@@ -9,7 +9,7 @@ export HASH=`git rev-parse --short=8 HEAD`
 export KERNEL_ZIP="RZ-$VARIANT-$(date +%y%m%d)-$HASH"
 export LOCALVERSION=~`echo $KERNEL_ZIP`
 export ARCH=arm64
-export CROSS_COMPILE="/mnt/Building/gcc-arm-8.2-2018.11-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-"
+export CROSS_COMPILE="/mnt/Building/gcc-arm-8.2-2019.01-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-"
 make O=../out clean
 make O=../out mrproper
 make O=../out oneplus5_defconfig
