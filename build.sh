@@ -1,5 +1,5 @@
-KBUILD_OUTPUT=/mnt/Building/out
-MODULES_DIR=/mnt/Building/AnyKernel2-stock/modules
+KBUILD_OUTPUT=~/out
+MODULES_DIR=~/AnyKernel2-stock/modules
 
 cd /mnt/Building/op5t-stable-pie-beta
 export USE_CCACHE=1
