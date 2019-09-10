@@ -16,7 +16,7 @@ if [ "${1}" = "skip" ] ; then
 else
 	echo "Compiling kernel"
 	cp defconfig .config
-	make "$@" || exit 1
+	make -j32 || exit 1
 fi
 
 echo "Building new ramdisk"
@@ -43,7 +43,7 @@ ls -lh $RAMFS_TMP.cpio.gz
 cd $KERNELDIR
 
 echo "Making new boot image"
-mkbootimg \
+./mkbootimg \
     --kernel $KERNELDIR/arch/arm64/boot/Image.gz-dtb \
     --ramdisk $RAMFS_TMP.cpio.gz \
     --cmdline 'androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=2048 androidboot.usbconfigfs=true androidboot.usbcontroller=a800000.dwc3 firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7 buildvariant=user' \
