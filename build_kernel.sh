@@ -38,14 +38,14 @@ cd $KERNELDIR
 rm -rf $RAMFS_TMP/tmp/*
 
 cd $RAMFS_TMP
-find . | fakeroot cpio -H newc -o | gzip -9 > $RAMFS_TMP.cpio.gz
-ls -lh $RAMFS_TMP.cpio.gz
+find . | fakeroot cpio -H newc -o | gzip -9 > initramfs.cpio.gz
+ls -lh initramfs.cpio.gz
 cd $KERNELDIR
 
 echo "Making new boot image"
-./mkbootimg \
+./mkboot \
     --kernel $KERNELDIR/arch/arm64/boot/Image.gz-dtb \
-    --ramdisk $RAMFS_TMP.cpio.gz \
+    --ramdisk /tmp/arter97-op5-ramdisk/initramfs.cpio.gz \
     --cmdline 'androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=2048 androidboot.usbconfigfs=true androidboot.usbcontroller=a800000.dwc3 firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7 buildvariant=user' \
     --base           0x00000000 \
     --pagesize       4096 \
@@ -56,7 +56,7 @@ echo "Making new boot image"
     --os_version     9.0.0 \
     --os_patch_level 2019-04 \
     --header_version 1 \
-    -o $KERNELDIR/boot.img
+    -o /mnt/Building/arter97_msm8998_oneplus_5t/boot.img
 
 GENERATED_SIZE=$(stat -c %s boot.img)
 if [[ $GENERATED_SIZE -gt $PARTITION_SIZE ]]; then
